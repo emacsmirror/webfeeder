@@ -44,11 +44,8 @@ Load the package with
  "./public"
  "https://example.org/"
  '("post1.html" "post2.html" "post3.html")
- (delete "index.html"
-         (mapcar (lambda (f) (replace-regexp-in-string ".*/public/" "" f))
-                 (directory-files-recursively "public" "index.html")))
  :title "My homepage"
- :description "A collection of articles")
+ :description "A collection of articles in Atom")
 #+end_src
 
 - To build an RSS feed, use the RSS builder:
@@ -59,11 +56,8 @@ Load the package with
  "./public"
  "https://example.org/"
  '("post1.html" "post2.html" "post3.html")
- (delete "index.html"
-         (mapcar (lambda (f) (replace-regexp-in-string ".*/public/" "" f))
-                 (directory-files-recursively "public" "index.html")))
  :title "My homepage"
- :description "A collection of articles"
+ :description "A collection of articles in RSS"
  :builder 'feed-builder-make-rss)
 #+end_src
 
