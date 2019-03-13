@@ -77,17 +77,19 @@ This can be customized to choose which part to include.")
   "Function to fetch the generator from an HTML file.")
 
 (defun webfeeder-author-default (html-file)
-  "Return the author from the HTML file."
+  "Return the author from the HTML-FILE, or nil if not found.
+This is less reliable than `webfeeder-author-libxml'."
   (let ((case-fold-search t))
     (with-temp-buffer
       (insert-file-contents html-file)
       (goto-char (point-min))
-      (search-forward-regexp (rx line-start "<meta name=\"author\" content=\"" (group (* (not (any "\"")))) "\""))
+      (search-forward-regexp (rx line-start "<meta name=\"author\" content=\""
+                                 (group (* (not (any "\"")))) "\""))
       (match-string 1))))
 
 (defun webfeeder-author-libxml (html-file)
-  "Return the author from the HTML file.
-This uses libxml to parse."
+  "Return the author from the HTML-FILE, or nil if not found.
+This requires Emacs to be linked against libxml."
   (with-temp-buffer
     (insert-file-contents html-file)
     (let* ((dom (libxml-parse-html-region (point-min) (point-max)))
@@ -97,8 +99,9 @@ This uses libxml to parse."
                return content-value))))
 
 (defun webfeeder-date-default (html-file)
-  "Return the date from the HTML file.
-The date is returned as time value.  See `current-time-string'."
+  "Return the date from the HTML-FILE.
+The date is returned as time value.  See `current-time-string'.
+This is less reliable than `webfeeder-date-libxml'."
   (let ((case-fold-search t))
     (with-temp-buffer
       (insert-file-contents html-file)
@@ -111,9 +114,9 @@ The date is returned as time value.  See `current-time-string'."
         0))))
 
 (defun webfeeder-date-libxml (html-file)
-  "Return the date from the HTML file.
+  "Return the date from the HTML-FILE.
 The date is returned as time value.  See `current-time-string'.
-This uses libxml to parse."
+This requires Emacs to be linked against libxml."
   (with-temp-buffer
     (insert-file-contents html-file)
     (let* ((dom (libxml-parse-html-region (point-min) (point-max)))
@@ -128,7 +131,8 @@ This uses libxml to parse."
                " DummyDateSuffix")))))
 
 (defun webfeeder-title-default (html-file)
-  "Return the title from the HTML file."
+  "Return the title from the HTML-FILE.
+This is less reliable than `webfeeder-title-libxml'."
   (let ((case-fold-search t))
     (with-temp-buffer
       (insert-file-contents html-file)
@@ -137,8 +141,8 @@ This uses libxml to parse."
       (match-string 1))))
 
 (defun webfeeder-title-libxml (html-file)
-  "Return the title from the HTML file.
-This uses libxml to parse."
+  "Return the title from the HTML-FILE.
+This requires Emacs to be linked against libxml."
   (with-temp-buffer
     (insert-file-contents html-file)
     (let* ((dom (libxml-parse-html-region (point-min) (point-max)))
@@ -148,7 +152,8 @@ This uses libxml to parse."
         title))))
 
 (defun webfeeder-subtitle-default (html-file)
-  "Return the subtitle from the HTML file."
+  "Return the subtitle from the HTML-FILE.
+This is less reliable than `webfeeder-subtitle-libxml'."
   (let ((case-fold-search t))
     (with-temp-buffer
       (insert-file-contents html-file)
@@ -157,8 +162,8 @@ This uses libxml to parse."
       (match-string 1))))
 
 (defun webfeeder-subtitle-libxml (html-file)
-  "Return the subtitle from the HTML file.
-This uses libxml to parse."
+  "Return the subtitle from the HTML-FILE.
+This requires Emacs to be linked against libxml."
   (with-temp-buffer
     (insert-file-contents html-file)
     (let* ((dom (libxml-parse-html-region (point-min) (point-max)))
@@ -167,11 +172,10 @@ This uses libxml to parse."
           nil
         subtitle))))
 
-;; (insert (webfeeder-body-libxml "/home/ambrevar/projects/ambrevar.gitlab.io/webfeeder/post0-html5-fancy.html"))
 (defun webfeeder-body-libxml (html-file &optional _url exclude-toc)
-  "Return the HTML body as a string.
-Relative links are made absolute to URL.
-If EXCLUDE-TOC is non-nil, the table-of-contents is not included in the body."
+  "Return the body of HTML-FILE as a string.
+If EXCLUDE-TOC is non-nil, the table-of-contents is not included in the body.
+This requires Emacs to be linked against libxml."
   (with-temp-buffer
     (insert-file-contents html-file)
     (let* ((dom (libxml-parse-html-region (point-min) (point-max)))
@@ -189,9 +193,10 @@ If EXCLUDE-TOC is non-nil, the table-of-contents is not included in the body."
       (shr-dom-to-xml content))))
 
 (defun webfeeder-body-default (html-file &optional url exclude-toc)
-  "Return the HTML body as a string.
+  "Return the body of HTML-FILE as a string.
 Relative links are made absolute to URL.
-If EXCLUDE-TOC is non-nil, the table-of-contents is not included in the body."
+If EXCLUDE-TOC is non-nil, the table-of-contents is not included in the body.
+This is less reliable than `webfeeder-body-libxml'."
   (with-temp-buffer
     (insert-file-contents html-file)
     ;; TODO: Move to helper function.
@@ -219,7 +224,8 @@ If EXCLUDE-TOC is non-nil, the table-of-contents is not included in the body."
 
 
 (defun webfeeder-generator-default (html-file)
-  "Return the generator from the HTML file."
+  "Return the generator from the HTML-FILE.
+This is less reliable than `webfeeder-generator-libxml'."
   (let ((case-fold-search t))
     (with-temp-buffer
       (insert-file-contents html-file)
@@ -228,8 +234,8 @@ If EXCLUDE-TOC is non-nil, the table-of-contents is not included in the body."
       (match-string 1))))
 
 (defun webfeeder-generator-libxml (html-file)
-  "Return the generator from the HTML file.
-This uses libxml to parse."
+  "Return the generator from the HTML-FILE.
+This requires Emacs to be linked against libxml."
   (with-temp-buffer
     (insert-file-contents html-file)
     (let* ((dom (libxml-parse-html-region (point-min) (point-max)))
@@ -246,7 +252,7 @@ This uses libxml to parse."
 
 (defun webfeeder-item-to-rss (item)
   "Return an RSS ITEM as a string.
-The item date is set to epoch if the item date is nil."
+The date is set to epoch if the item date is nil."
   (concat
    "<item>\n"
    (when (webfeeder-item-author item)
@@ -268,7 +274,7 @@ The item date is set to epoch if the item date is nil."
 
 (defun webfeeder-item-to-atom (item)
   "Return an atom ITEM as a string.
-The item date is set to epoch if the item date is nil."
+The date is set to epoch if the item date is nil."
   (concat
    "<entry>\n"
    "  <title>" (webfeeder-item-title item) "</title>\n"
@@ -306,7 +312,7 @@ The item date is set to epoch if the item date is nil."
 
 ;;;###autoload
 (defun webfeeder-html-files-to-items (project-dir url html-files)
-  "Parse the source HTML-FILES located in PROJECT-DIR and set to be hosted at URL.
+  "Parse the source HTML-FILES and return a list of webfeeder-items.
 PROJECT-DIR is where HTML files are also assumed to reside.
 PROJECT-DIR is the local root of the website hosted at URL.
 HTML parsing details can be customized through the following
