@@ -34,6 +34,9 @@ Load the package with
 
 : (require 'webfeeder)
 
+It's recommended to have an Emacs built against libxml, although basic support
+without libxml is also provided.
+
 * Usage
 
 - Build an Atom feed:
