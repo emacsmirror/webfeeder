@@ -38,8 +38,7 @@
 
 (put 'string= 'ert-explainer 'webfeeder--string=-explainer)
 
-;; TODO: Make private.
-(defun webfeeder-test-pages (feed html-files
+(defun webfeeder--test-pages (feed html-files
                                      &optional builder max-entries)
   (setq builder (or builder 'webfeeder-make-atom))
   (let* ((feed-buffer (webfeeder--file-to-string feed))
@@ -87,7 +86,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post0.rss" '("post0-html5-fancy.html")
+      (webfeeder--test-pages "libxml-post0.rss" '("post0-html5-fancy.html")
                                'webfeeder-make-rss))))
 
 (ert-deftest webfeeder-single-page-default ()
@@ -97,7 +96,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-default)
           (webfeeder-title-function 'webfeeder-title-default)
           (webfeeder-body-function 'webfeeder-body-default))
-      (webfeeder-test-pages "default-post0.rss" '("post0-html5-fancy.html")
+      (webfeeder--test-pages "default-post0.rss" '("post0-html5-fancy.html")
                                'webfeeder-make-rss))))
 
 (ert-deftest webfeeder-multi-page-libxml ()
@@ -106,7 +105,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post0+post1.rss" '("post0-html5-fancy.html"
+      (webfeeder--test-pages "libxml-post0+post1.rss" '("post0-html5-fancy.html"
                                                           "post1-html5-fancy.html")
                                'webfeeder-make-rss))))
 
@@ -116,7 +115,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post1.rss" '("post0-html5-fancy.html"
+      (webfeeder--test-pages "libxml-post1.rss" '("post0-html5-fancy.html"
                                                     "post1-html5-fancy.html")
                                'webfeeder-make-rss 1))))
 
@@ -126,7 +125,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post0-no-html.rss" '("post0.html")
+      (webfeeder--test-pages "libxml-post0-no-html.rss" '("post0.html")
                                'webfeeder-make-rss))))
 
 (ert-deftest webfeeder-single-page-no-fancy ()
@@ -135,7 +134,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post0-no-fancy.rss" '("post0-html5.html")
+      (webfeeder--test-pages "libxml-post0-no-fancy.rss" '("post0-html5.html")
                                'webfeeder-make-rss))))
 
 ;; Atom tests.
@@ -145,7 +144,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post0.atom" '("post0-html5-fancy.html")
+      (webfeeder--test-pages "libxml-post0.atom" '("post0-html5-fancy.html")
                                      'webfeeder-make-atom))))
 
 (ert-deftest webfeeder-single-atom-default ()
@@ -154,7 +153,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-default)
           (webfeeder-title-function 'webfeeder-title-default)
           (webfeeder-body-function 'webfeeder-body-default))
-      (webfeeder-test-pages "default-post0.atom" '("post0-html5-fancy.html")
+      (webfeeder--test-pages "default-post0.atom" '("post0-html5-fancy.html")
                                      'webfeeder-make-atom))))
 
 (ert-deftest webfeeder-multi-atom-libxml ()
@@ -163,7 +162,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post0+post1.atom" '("post0-html5-fancy.html"
+      (webfeeder--test-pages "libxml-post0+post1.atom" '("post0-html5-fancy.html"
                                                                 "post1-html5-fancy.html")
                                      'webfeeder-make-atom))))
 
@@ -173,7 +172,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post1.atom" '("post0-html5-fancy.html"
+      (webfeeder--test-pages "libxml-post1.atom" '("post0-html5-fancy.html"
                                                     "post1-html5-fancy.html")
                                'webfeeder-make-atom 1))))
 
@@ -183,7 +182,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post0-no-html.atom" '("post0.html")
+      (webfeeder--test-pages "libxml-post0-no-html.atom" '("post0.html")
                                      'webfeeder-make-atom))))
 
 (ert-deftest webfeeder-single-atom-no-fancy ()
@@ -192,7 +191,7 @@ This requires an Emacs compiled against libxml."
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
           (webfeeder-title-function 'webfeeder-title-libxml)
           (webfeeder-body-function 'webfeeder-body-libxml))
-      (webfeeder-test-pages "libxml-post0-no-fancy.atom" '("post0-html5.html")
+      (webfeeder--test-pages "libxml-post0-no-fancy.atom" '("post0-html5.html")
                                      'webfeeder-make-atom))))
 
 (provide 'webfeeder-test)
