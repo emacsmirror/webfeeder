@@ -77,8 +77,7 @@
                                  :build-date 0
                                  :max-entries max-entries)))))
 
-;; TODO: Rename "page" to "rss".
-(ert-deftest webfeeder-single-page-libxml ()
+(ert-deftest webfeeder-single-rss-libxml ()
   "Simple test using libxml backend.
 This requires an Emacs compiled against libxml."
   (cl-assert (file-directory-p webfeeder-test-dir))
@@ -89,7 +88,7 @@ This requires an Emacs compiled against libxml."
       (webfeeder--test-pages "libxml-post0.rss" '("post0-html5-fancy.html")
                                'webfeeder-make-rss))))
 
-(ert-deftest webfeeder-single-page-default ()
+(ert-deftest webfeeder-single-rss-default ()
   "Simple test using regular expressions to parse XML."
   (cl-assert (file-directory-p webfeeder-test-dir))
   (let ((default-directory (expand-file-name webfeeder-test-dir default-directory)))
@@ -99,7 +98,7 @@ This requires an Emacs compiled against libxml."
       (webfeeder--test-pages "default-post0.rss" '("post0-html5-fancy.html")
                                'webfeeder-make-rss))))
 
-(ert-deftest webfeeder-multi-page-libxml ()
+(ert-deftest webfeeder-multi-rss-libxml ()
   (cl-assert (file-directory-p webfeeder-test-dir))
   (let ((default-directory (expand-file-name webfeeder-test-dir default-directory)))
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
@@ -119,7 +118,7 @@ This requires an Emacs compiled against libxml."
                                                     "post1-html5-fancy.html")
                                'webfeeder-make-rss 1))))
 
-(ert-deftest webfeeder-single-page-no-html5 ()
+(ert-deftest webfeeder-single-rss-no-html5 ()
   (cl-assert (file-directory-p webfeeder-test-dir))
   (let ((default-directory (expand-file-name webfeeder-test-dir default-directory)))
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
@@ -128,7 +127,7 @@ This requires an Emacs compiled against libxml."
       (webfeeder--test-pages "libxml-post0-no-html.rss" '("post0.html")
                                'webfeeder-make-rss))))
 
-(ert-deftest webfeeder-single-page-no-fancy ()
+(ert-deftest webfeeder-single-rss-no-fancy ()
   (cl-assert (file-directory-p webfeeder-test-dir))
   (let ((default-directory (expand-file-name webfeeder-test-dir default-directory)))
     (let ((webfeeder-date-function 'webfeeder-date-libxml)
