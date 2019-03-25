@@ -71,6 +71,14 @@
 (defun webfeeder-has-libxml-p ()
   (fboundp 'libxml-parse-html-region))
 
+(defgroup webfeeder nil
+  "Predefined configurations for `webfeeder'."
+  :group 'nxml)
+
+(defcustom webfeeder-default-author "Unknown author"
+  "When input files don't provide an author and it is required, use this value."
+  :type 'string)
+
 (defvar webfeeder-author-function (if (webfeeder-has-libxml-p)
                                          'webfeeder-author-libxml
                                        'webfeeder-author-default)
@@ -311,8 +319,9 @@ The date is set to epoch if the item date is nil."
   (concat
    "<entry>\n"
    "  <title>" (webfeeder-item-title item) "</title>\n"
-   (when (webfeeder-item-author item)
-     (concat "  <author><name>" (webfeeder-item-author item) "</name></author>\n"))
+   (concat "  <author><name>" (or (webfeeder-item-author item)
+                                  webfeeder-default-author)
+           "</name></author>\n")
    (when (webfeeder-item-subtitle item)
      (concat "  <summary>" (webfeeder-item-subtitle item) "</summary>\n"))
    ;; TODO: Pros and cons if we could pass a "type" item to specify HTML or
