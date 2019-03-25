@@ -334,7 +334,7 @@ The date is set to epoch if the item date is nil."
      (mapconcat (lambda (cat) (concat "  <category>" cat "</category>"))
                 (webfeeder-item-categories item)
                 "\n"))
-   "  <link>" (webfeeder-item-url item) "</link>\n"
+   "  <link href=\"" (webfeeder-item-url item) "\"/>\n"
    "  <id>" (webfeeder-item-url item) "</id>\n"
    "  <updated>"
    (webfeeder--date-to-rfc3339 (or (webfeeder-item-date item) 0))
