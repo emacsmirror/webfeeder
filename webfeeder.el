@@ -464,7 +464,8 @@ FEED-ITEMS can be generated with `webfeeder-html-files-to-items'."
               (if subtitle
                   (concat "<subtitle>" subtitle "</subtitle>\n")
                 "")
-              "<summary>" (or description title) "</summary>\n"
+              ;; TODO: <summary> is not supported at the top-level.  Where do we put description?
+              ;; "<summary>" (or description title) "</summary>\n"
               ;; TODO: Change generator name?
               (concat "<generator>" (or generator "Emacs webfeeder.el") "</generator>\n")
               "<link href=\"" url "\"/>\n"
