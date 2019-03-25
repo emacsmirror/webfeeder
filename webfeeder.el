@@ -467,7 +467,7 @@ FEED-ITEMS can be generated with `webfeeder-html-files-to-items'."
               "<summary>" (or description title) "</summary>\n"
               ;; TODO: Change generator name?
               (concat "<generator>" (or generator "Emacs webfeeder.el") "</generator>\n")
-              "<link href=\"" url "\">\n"
+              "<link href=\"" url "\"/>\n"
               (format "<link href=\"%s\" rel=\"self\"/>\n"
                       path)
               ;; REVIEW: Use UUID?
