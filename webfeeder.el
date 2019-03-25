@@ -324,10 +324,9 @@ The date is set to epoch if the item date is nil."
            "</name></author>\n")
    (when (webfeeder-item-subtitle item)
      (concat "  <summary>" (webfeeder-item-subtitle item) "</summary>\n"))
-   ;; TODO: Pros and cons if we could pass a "type" item to specify HTML or
-   ;; XHTML and remove CDATA?
-   ;; "  <content type=\"xhtml\"><![CDATA["
-   "  <content><![CDATA["
+   ;; TODO: What's the impact of chosing between HTML or XHTML as a type?  Can
+   ;; we auto-detect this?
+   "  <content type=\"html\"><![CDATA["
    (webfeeder-item-body item)
    "]]></content>\n"
    (when (webfeeder-item-categories item)
