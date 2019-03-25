@@ -277,7 +277,11 @@ This requires Emacs to be linked against libxml."
   (format-time-string "%a, %d %b %Y %H:%M:%S %z" date))
 
 (defun webfeeder--date-to-rfc3339 (date)
-  (format-time-string "%FT%T%z" date))
+  (concat (format-time-string "%FT%T" date)
+          (let ((zone (format-time-string "%z" date)))
+            (concat (substring zone 0 3)
+                    ":"
+                    (substring zone 3)))))
 
 (defun webfeeder-item-to-rss (item)
   "Return an RSS ITEM as a string.
