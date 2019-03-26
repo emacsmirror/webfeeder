@@ -1,6 +1,6 @@
 ;;; webfeeder.el --- Build RSS and Atom webfeeds from HTML files -*- lexical-binding: t -*-
 
-;; Copyright (C) 2018, 2019 Pierre Neidhardt <mail@ambrevar.xyz>
+;; Copyright (C) 2019  Free Software Foundation, Inc.
 
 ;; Author: Pierre Neidhardt <mail@ambrevar.xyz>
 ;; Maintainer: Pierre Neidhardt <mail@ambrevar.xyz>
