@@ -1,6 +1,6 @@
 #+TITLE: First post
 #+SUBTITLE: First post's subtitle
-#+AUTHOR: John Doe
+#+AUTHOR: John Doe <john@doe.org>
 #+DATE: <2019-01-27 Sun>
 
 Aliquam erat volutpat.  Nunc eleifend leo vitae magna.  In id erat non orci
