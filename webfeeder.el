@@ -299,8 +299,6 @@ The date is set to epoch if the item date is nil."
    (when (webfeeder-item-author item)
      (concat "  <author>" (webfeeder-item-author item) "</author>\n"))
    "  <title>" (webfeeder-item-title item) "</title>\n"
-   (when (webfeeder-item-subtitle item)
-     (concat "  <comments>" (webfeeder-item-subtitle item) "</comments>\n"))
    "  <description><![CDATA[" (webfeeder-item-body item) "]]></description>\n"
    (when (webfeeder-item-categories item)
      (mapconcat (lambda (cat) (concat "  <category>" cat "</category>"))
