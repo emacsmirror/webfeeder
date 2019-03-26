@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Example feed</title>
-<summary>Example description</summary>
 <generator>Emacs webfeeder.el</generator>
-<link href="https://example.org/">
+<link href="https://example.org/"/>
 <link href="https://example.org/default-post0.atom" rel="self"/>
 <id>https://example.org/default-post0.atom</id>
-<updated>1970-01-01T01:00:00+0100</updated>
+<updated>1970-01-01T01:00:00+01:00</updated>
 <entry>
   <title>First post</title>
-  <author><name>John Doe</name></author>
+  <author><name>John Doe</name><email>john@doe.org</email></author>
   <summary>First post's subtitle</summary>
-  <content><![CDATA[
+  <content type="html"><![CDATA[
 <p>
 Aliquam erat volutpat.  Nunc eleifend leo vitae magna.  In id erat non orci
 commodo lobortis.  Proin neque massa, cursus ut, gravida ut, lobortis eget,
@@ -21,8 +20,8 @@ quis, semper a, massa.  Phasellus purus.  Pellentesque tristique imperdiet
 tortor.  Nam euismod tellus id erat.
 </p>
 
-<div id="outline-container-org86962ff" class="outline-2">
-<h2 id="org86962ff"><span class="section-number-2">1</span> Contacts</h2>
+<div id="outline-container-org51dcf91" class="outline-2">
+<h2 id="org51dcf91"><span class="section-number-2">1</span> Contacts</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Email: <a href="https://example.org/post0-html5-fancy.html/mailto:mail@ambrevar.xyz">mail@ambrevar.xyz</a></li>
@@ -31,8 +30,8 @@ tortor.  Nam euismod tellus id erat.
 </div>
 </div>
 ]]></content>
-  <link>https://example.org/post0-html5-fancy.html</link>
+  <link href="https://example.org/post0-html5-fancy.html"/>
   <id>https://example.org/post0-html5-fancy.html</id>
-  <updated>2019-03-13T17:46:00+0100</updated>
+  <updated>2019-03-26T10:22:00+01:00</updated>
 </entry>
 </feed>

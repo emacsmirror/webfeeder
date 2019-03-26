@@ -23,8 +23,8 @@ id ligula quis est convallis tempor.  Curabitur lacinia pulvinar nibh.  Nam a
 sapien.
 </p>
 
- <div id="outline-container-org603c6e3" class="outline-2">
- <h2 id="org603c6e3"> <span class="section-number-2">1</span> Section 1</h2>
+ <div id="outline-container-org11c278d" class="outline-2">
+ <h2 id="org11c278d"> <span class="section-number-2">1</span> Section 1</h2>
  <div class="outline-text-2" id="text-1">
  <p>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  Donec hendrerit
@@ -37,8 +37,8 @@ Nam vestibulum accumsan nisl.
 </div>
 </div>
 
- <div id="outline-container-org327bd12" class="outline-2">
- <h2 id="org327bd12"> <span class="section-number-2">2</span> Section 2</h2>
+ <div id="outline-container-orgd65c0d7" class="outline-2">
+ <h2 id="orgd65c0d7"> <span class="section-number-2">2</span> Section 2</h2>
  <div class="outline-text-2" id="text-2">
  <p>
 Pellentesque dapibus suscipit ligula.  Donec posuere augue in quam.  Etiam vel
@@ -57,12 +57,11 @@ tellus lacinia purus, et dictum nunc justo sit amet elit.
 </div>]]></description>
   <link>https://example.org/post1-html5-fancy.html</link>
   <guid isPermaLink="false">https://example.org/post1-html5-fancy.html</guid>
-  <pubDate>Wed, 13 Mar 2019 01:00:00 +0100</pubDate>
+  <pubDate>Tue, 26 Mar 2019 01:00:00 +0100</pubDate>
 </item>
 <item>
-  <author>John Doe</author>
+  <author>john@doe.org (John Doe)</author>
   <title>First post</title>
-  <comments>First post's subtitle</comments>
   <description><![CDATA[<div id="content">
  <p>
 Aliquam erat volutpat.  Nunc eleifend leo vitae magna.  In id erat non orci
@@ -74,8 +73,8 @@ quis, semper a, massa.  Phasellus purus.  Pellentesque tristique imperdiet
 tortor.  Nam euismod tellus id erat.
 </p>
 
- <div id="outline-container-org86962ff" class="outline-2">
- <h2 id="org86962ff"> <span class="section-number-2">1</span> Contacts</h2>
+ <div id="outline-container-org51dcf91" class="outline-2">
+ <h2 id="org51dcf91"> <span class="section-number-2">1</span> Contacts</h2>
  <div class="outline-text-2" id="text-1">
  <ul class="org-ul"> <li>Email:  <a href="mailto:mail@ambrevar.xyz">mail@ambrevar.xyz</a></li>
 </ul></div>
