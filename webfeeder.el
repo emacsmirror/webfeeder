@@ -297,7 +297,18 @@ The date is set to epoch if the item date is nil."
   (concat
    "<item>\n"
    (when (webfeeder-item-author item)
-     (concat "  <author>" (webfeeder-item-author item) "</author>\n"))
+     ;; RSS <author> tag must start with the email.  If no e-mail is found, we
+     ;; skip the tag altogether.  Since it's hard to parse email addresses, we
+     ;; use `mail-extract-address-components' which expects the "NAME <EMAIL>"
+     ;; format.
+     (let ((name+addr (mail-extract-address-components (webfeeder-item-author item))))
+       (when (cadr name+addr)
+         (concat "  <author>"
+                 (cadr name+addr)
+                 (if (car name+addr)
+                     (format " (%s)" (car name+addr))
+                   "")
+                 "</author>\n"))))
    "  <title>" (webfeeder-item-title item) "</title>\n"
    "  <description><![CDATA[" (webfeeder-item-body item) "]]></description>\n"
    (when (webfeeder-item-categories item)
