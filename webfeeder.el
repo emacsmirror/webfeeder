@@ -472,7 +472,7 @@ FEED-ITEMS can be generated with `webfeeder-html-files-to-items'."
 
 ;;;###autoload
 (cl-defun webfeeder-make-atom (webfeed url feed-items
-                                          &key title subtitle description
+                                          &key title subtitle ;; description
                                           author generator
                                           build-date predicate max-entries
                                           &allow-other-keys)

@@ -1,0 +1,3 @@
+*.elc
+webfeeder-pkg.el
+webfeeder-autoloads.el
