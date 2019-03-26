@@ -301,12 +301,12 @@ The date is set to epoch if the item date is nil."
      ;; skip the tag altogether.  Since it's hard to parse email addresses, we
      ;; use `mail-extract-address-components' which expects the "NAME <EMAIL>"
      ;; format.
-     (let ((name+addr (mail-extract-address-components (webfeeder-item-author item))))
+     (let ((name+addr (webfeeder--extract-name+email (webfeeder-item-author item))))
        (when (cadr name+addr)
          (concat "  <author>"
                  (cadr name+addr)
                  (if (car name+addr)
-                     (format " (%s)" (car name+addr))
+                     (format " (%s)" (xml-escape-string (car name+addr)))
                    "")
                  "</author>\n"))))
    "  <title>" (webfeeder-item-title item) "</title>\n"
@@ -322,15 +322,36 @@ The date is set to epoch if the item date is nil."
    "</pubDate>\n"
    "</item>\n"))
 
+(defun webfeeder--extract-name+email (address)
+  "Like `mail-extract-address-components' but does not set the
+address part if email is missing.
+For instance, calling this function on \"foo\" returns (\"foo\" nil)."
+  (let ((name+addr (mail-extract-address-components address)))
+    (when (string= (car name+addr)
+                   (cadr name+addr))
+      (setcdr name+addr nil))
+    name+addr))
+
+(defun webfeeder--format-atom-author (author)
+  (concat "<author>"
+          (let ((name+addr (webfeeder--extract-name+email author)))
+            (if (cadr name+addr)
+                (format "<name>%s</name><email>%s</email>"
+                        (xml-escape-string (car name+addr))
+                        (cadr name+addr))
+              (format "<name>%s</name>" (xml-escape-string author))))
+          "</author>\n"))
+
 (defun webfeeder-item-to-atom (item)
   "Return an atom ITEM as a string.
 The date is set to epoch if the item date is nil."
   (concat
    "<entry>\n"
    "  <title>" (webfeeder-item-title item) "</title>\n"
-   (concat "  <author><name>" (or (webfeeder-item-author item)
-                                  webfeeder-default-author)
-           "</name></author>\n")
+   (concat "  "
+           (webfeeder--format-atom-author
+            (or (webfeeder-item-author item)
+                webfeeder-default-author)))
    (when (webfeeder-item-subtitle item)
      (concat "  <summary>" (webfeeder-item-subtitle item) "</summary>\n"))
    ;; TODO: What's the impact of chosing between HTML or XHTML as a type?  Can
@@ -479,7 +500,7 @@ FEED-ITEMS can be generated with `webfeeder-html-files-to-items'."
       (insert "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
               "<feed xmlns=\"http://www.w3.org/2005/Atom\">"
               (if author
-                  (concat "<author><name>" author "</name></author>\n")
+                  (webfeeder--format-atom-author author)
                 "")
               "<title>" title "</title>\n"
               (if subtitle
