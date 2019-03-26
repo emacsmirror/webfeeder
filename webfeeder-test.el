@@ -68,14 +68,17 @@
                                  :description "Example description"
                                  :build-date 0
                                  :max-entries max-entries)))
-    (should-not
-     (string=
-      feed-buffer
-      (funcall builder feed "https://example.org/" feed-items
-                                 :title "Example feed"
-                                 :description "Example description TYPO"
-                                 :build-date 0
-                                 :max-entries max-entries)))))
+    (when (eq builder 'webfeeder-make-rss)
+      ;; This test is irrelevant to Atom since it does not have a top-level
+      ;; "description".
+      (should-not
+       (string=
+        feed-buffer
+        (funcall builder feed "https://example.org/" feed-items
+                 :title "Example feed"
+                 :description "Example description TYPO"
+                 :build-date 0
+                 :max-entries max-entries))))))
 
 (ert-deftest webfeeder-single-rss-libxml ()
   "Simple test using libxml backend.
