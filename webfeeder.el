@@ -45,14 +45,14 @@
 ;; it's a bug, please report.
 ;;
 ;; The full list of customizable functions is documented in
-;; `feed-builder-html-files-to-items'.
+;; `webfeeder-html-files-to-items'.
 ;;
 ;; The entry point is `webfeeder-build': consult its documentation for more
 ;; information.
 ;;
 ;; Example:
 ;;
-;; (feed-builder-build
+;; (webfeeder-build
 ;;   "atom.xml"
 ;;   "./public"
 ;;   "https://example.org/"
