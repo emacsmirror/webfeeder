@@ -472,7 +472,7 @@ FEED-ITEMS can be generated with `webfeeder-html-files-to-items'."
 
 ;;;###autoload
 (cl-defun webfeeder-make-atom (webfeed url feed-items
-                                          &key title subtitle ;; description
+                                          &key title subtitle ;; description ; Unused? See below.
                                           author generator
                                           build-date predicate max-entries
                                           &allow-other-keys)
@@ -481,8 +481,7 @@ FEED-ITEMS can be generated with `webfeeder-html-files-to-items'."
 WEBFEED is the path where the feed is intended to be stored,
 relative to URL.
 
-A feed can have a TITLE and DESCRIPTION: if not, the URL will be
-used.
+A feed can have a TITLE: if not, the URL will be used.
 
 When BUILD-DATE is nil, use `current-time'.  Otherwise it can be
 a time expression as in `current-time'.  0 means EPOCH.
