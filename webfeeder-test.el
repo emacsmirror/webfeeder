@@ -19,7 +19,6 @@
 
 (require 'ert)
 
-(add-to-list 'load-path ".")            ;FIXME: Really?
 (require 'webfeeder)
 (require 'diff)
 (require 'cl-lib)
