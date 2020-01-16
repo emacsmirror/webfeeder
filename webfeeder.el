@@ -325,8 +325,12 @@ The date is set to epoch if the item date is nil."
 (defun webfeeder--extract-name+email (address)
   "Like `mail-extract-address-components' but does not set the
 address part if email is missing.
-For instance, calling this function on \"foo\" returns (\"foo\" nil)."
+For instance, calling this function on \"foo\" returns (\"foo\" nil).
+Calling it on foo@bar.abc returns (nil \"foo@bar.abc\")."
   (let ((name+addr (mail-extract-address-components address)))
+    (unless (string-match "@" (cadr name+addr))
+      (setcar name+addr (cadr name+addr))
+      (setcdr name+addr nil))
     (when (string= (car name+addr)
                    (cadr name+addr))
       (setcdr name+addr nil))
@@ -335,11 +339,15 @@ For instance, calling this function on \"foo\" returns (\"foo\" nil)."
 (defun webfeeder--format-atom-author (author)
   (concat "<author>"
           (let ((name+addr (webfeeder--extract-name+email author)))
-            (if (cadr name+addr)
-                (format "<name>%s</name><email>%s</email>"
-                        (xml-escape-string (car name+addr))
-                        (cadr name+addr))
-              (format "<name>%s</name>" (xml-escape-string author))))
+            (cond
+             ((and (car name+addr) (cadr name+addr))
+              (format "<name>%s</name><email>%s</email>"
+                      (xml-escape-string (car name+addr))
+                      (cadr name+addr)))
+             ((car name+addr)
+              (format "<name>%s</name>" (xml-escape-string author)))
+             (t
+              (format "<email>%s</email>" (xml-escape-string author)))))
           "</author>\n"))
 
 (defun webfeeder-item-to-atom (item)
