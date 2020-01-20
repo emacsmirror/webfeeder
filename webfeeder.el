@@ -389,7 +389,7 @@ The date is set to epoch if the item date is nil."
   categories
   generator)
 
-(defun webfeeder---xml-escape-string (string)
+(defun webfeeder--xml-escape-string (string)
   "Like `xml-escape-string' but return nil on nil."
   (if string
       (xml-escape-string string)
@@ -412,7 +412,7 @@ variables:
   (cl-loop for html-file in html-files
            for dest = (expand-file-name html-file project-dir)
            for feed-url = (concat (replace-regexp-in-string "/*$" "" url) "/" html-file)
-           for feed-author = (web-feeder--xml-escape-string (funcall webfeeder-author-function dest))
+           for feed-author = (webfeeder--xml-escape-string (funcall webfeeder-author-function dest))
            for feed-date = (or (funcall webfeeder-date-function
                                         (expand-file-name html-file project-dir))
                                0)
