@@ -61,7 +61,7 @@ tellus lacinia purus, et dictum nunc justo sit amet elit.
 <entry>
   <title>First post</title>
   <author><name>John Doe</name><email>john@doe.org</email></author>
-  <summary>First post's subtitle</summary>
+  <summary>First post&apos;s subtitle</summary>
   <content type="html"><![CDATA[<div id="content">
  <p>
 Aliquam erat volutpat.  Nunc eleifend leo vitae magna.  In id erat non orci
