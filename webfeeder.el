@@ -389,6 +389,12 @@ The date is set to epoch if the item date is nil."
   categories
   generator)
 
+(defun webfeeder--xml-escape-string (string)
+  "Like `xml-escape-string' but return nil on nil."
+  (if string
+      (xml-escape-string string)
+    nil))
+
 (defun webfeeder--parse-xml-string (string)
   "Call `xml-parse-string' on string."
   (when string
@@ -414,25 +420,25 @@ variables:
   (cl-loop for html-file in html-files
            for dest = (expand-file-name html-file project-dir)
            for feed-url = (concat (replace-regexp-in-string "/*$" "" url) "/" html-file)
-           ;; TODO: Shall we escape author, title and subtitle?  HTML files
-           ;; should already be escaped, so there should be no need.
+           ;; Author needs not be escaped because it's parsed in
+           ;; `webfeeder--format-atom-author'.
            for feed-author = (funcall webfeeder-author-function dest)
            for feed-date = (or (funcall webfeeder-date-function
                                         (expand-file-name html-file project-dir))
                                0)
-           for feed-title = (or (funcall webfeeder-title-function dest) feed-url)
-           for feed-subtitle = (funcall webfeeder-subtitle-function dest)
+           for feed-title = (or (webfeeder--xml-escape-string (funcall webfeeder-title-function dest)) feed-url)
+           for feed-subtitle = (webfeeder--xml-escape-string (funcall webfeeder-subtitle-function dest))
            for feed-body = (funcall webfeeder-body-function dest feed-url 'exclude-toc)
            for feed-categories = (funcall webfeeder-categories-function dest)
            for feed-generator = (funcall webfeeder-generator-function dest)
            collect (make-webfeeder-item :url feed-url
-                                           :author feed-author
-                                           :date feed-date
-                                           :title feed-title
-                                           :subtitle feed-subtitle
-                                           :body feed-body
-                                           :categories feed-categories
-                                           :generator feed-generator)))
+                                        :author feed-author
+                                        :date feed-date
+                                        :title feed-title
+                                        :subtitle feed-subtitle
+                                        :body feed-body
+                                        :categories feed-categories
+                                        :generator feed-generator)))
 
 ;;;###autoload
 (cl-defun webfeeder-make-rss (webfeed url feed-items
