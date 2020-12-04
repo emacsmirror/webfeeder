@@ -122,7 +122,7 @@ This is less reliable than `webfeeder-author-libxml'."
       (goto-char (point-min))
       (search-forward-regexp (rx line-start "<meta name=\"author\" content=\""
                                  (group (* (not (any "\"")))) "\""))
-      (match-string 1))))
+      (webfeeder--parse-xml-string (match-string 1)))))
 
 (defun webfeeder-author-libxml (html-file)
   "Return the author from the HTML-FILE, or nil if not found.
@@ -175,7 +175,7 @@ This is less reliable than `webfeeder-title-libxml'."
       (insert-file-contents html-file)
       (goto-char (point-min))
       (search-forward-regexp (rx line-start "<title>" (group (* (not (any "<")))) "</title>"))
-      (match-string 1))))
+      (webfeeder--parse-xml-string (match-string 1)))))
 
 (defun webfeeder-title-libxml (html-file)
   "Return the title from the HTML-FILE.
@@ -196,7 +196,7 @@ This is less reliable than `webfeeder-subtitle-libxml'."
       (insert-file-contents html-file)
       (goto-char (point-min))
       (search-forward-regexp (rx line-start "<span class=\"subtitle\">" (group (* (not (any "<")))) "</span>"))
-      (match-string 1))))
+      (webfeeder--parse-xml-string (match-string 1)))))
 
 (defun webfeeder-subtitle-libxml (html-file)
   "Return the subtitle from the HTML-FILE.
@@ -389,11 +389,13 @@ The date is set to epoch if the item date is nil."
   categories
   generator)
 
-(defun webfeeder--xml-escape-string (string)
-  "Like `xml-escape-string' but return nil on nil."
-  (if string
-      (xml-escape-string string)
-    nil))
+(defun webfeeder--parse-xml-string (string)
+  "Call `xml-parse-string' on string."
+  (when string
+    (with-temp-buffer
+      (insert string)
+      (goto-char (point-min))
+      (xml-parse-string))))
 
 ;;;###autoload
 (defun webfeeder-html-files-to-items (project-dir url html-files)
