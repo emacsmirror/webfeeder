@@ -116,7 +116,8 @@ This requires an Emacs compiled against libxml."
   (let ((default-directory (expand-file-name webfeeder-test-dir default-directory)))
     (let ((webfeeder-date-function 'webfeeder-date-default)
           (webfeeder-title-function 'webfeeder-title-default)
-          (webfeeder-body-function 'webfeeder-body-default))
+          (webfeeder-body-function 'webfeeder-body-default)
+          (webfeeder-author-function 'webfeeder-author-default))
       (webfeeder--test-pages "default-post0.rss" '("post0-html5-fancy.html")
                              'webfeeder-make-rss))))
 
@@ -173,7 +174,8 @@ This requires an Emacs compiled against libxml."
   (let ((default-directory (expand-file-name webfeeder-test-dir default-directory)))
     (let ((webfeeder-date-function 'webfeeder-date-default)
           (webfeeder-title-function 'webfeeder-title-default)
-          (webfeeder-body-function 'webfeeder-body-default))
+          (webfeeder-body-function 'webfeeder-body-default)
+          (webfeeder-author-function 'webfeeder-author-default))
       (webfeeder--test-pages "default-post0.atom" '("post0-html5-fancy.html")
                              'webfeeder-make-atom))))
 
