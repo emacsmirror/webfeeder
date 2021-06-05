@@ -5,7 +5,7 @@
 ;; Author: Pierre Neidhardt <mail@ambrevar.xyz>
 ;; Maintainer: Pierre Neidhardt <mail@ambrevar.xyz>
 ;; URL: https://gitlab.com/Ambrevar/emacs-webfeeder
-;; Version: 1.1.1
+;; Version: 1.1.2
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: news, hypermedia, blog, feed, rss, atom
 
